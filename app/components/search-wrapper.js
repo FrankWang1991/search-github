@@ -6,6 +6,7 @@ import query from "search-github/gql/queries/repos.graphql";
 
 export default class SearchWrapperComponent extends Component {
     @service('auth-apollo') apollo;
+    @tracked isResetToken = false
     searchSorts = [
         { label: "Best Match", value: "match" },
         { label: "Most stars", value: "stars" },
@@ -29,5 +30,14 @@ export default class SearchWrapperComponent extends Component {
                     this.searchResult = data.nodes
                     this.searchDesc = { pageInfo: data.pageInfo, repositoryCount: data.repositoryCount }
                 })
+    }
+    @action
+    resetToken() {
+        this.isResetToken = !this.isResetToken
+    }
+    @action
+    confirmToken(token) {
+        localStorage.setItem("token",token)
+        this.isResetToken = !this.isResetToken
     }
 }

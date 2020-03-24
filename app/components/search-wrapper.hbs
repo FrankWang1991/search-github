@@ -2,7 +2,11 @@
   <SearchWrapper::Bar
     @inputValue={{this.inputValue}}
     @inputChange={{this.inputChange}}
+    @resetToken={{this.resetToken}}
   />
   <SearchWrapper::Desc @searchDesc={{this.searchDesc}} @searchSorts={{this.searchSorts}} @changeSort={{this.changeSort}} />
   <SearchWrapper::Result @result={{this.searchResult}} />
+  {{#if this.isResetToken}}
+      <ResetToken @confirm={{this.confirmToken}}/>
+  {{/if}}
 </div>

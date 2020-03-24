@@ -1,0 +1,14 @@
+<div class="container reset-token my-5">
+  <div class="search-bar text-center mx-3">
+    <Input
+      @type="text"
+      @value={{this.accessToken}}
+      placeholder="input token"
+    />
+  </div>
+
+  <BsButton @type="light" {{on "click" (fn @confirm this.accessToken)}}>
+    Confirm
+  </BsButton>
+  <a href="https://github.com/settings/tokens">Generate Token</a>
+</div>

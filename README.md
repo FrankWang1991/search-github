@@ -3,10 +3,8 @@
 使用 GraphGL 与 GitHub API v4 相互配合,查询 GitHub 的 repos .   
 
 使用的环境:
- - node 
- - npm
- - Ember.js 3.16.3
- - 
+ - Node.js 10.16.0
+ - Ember.js 3.16.1
 
 ## 环境安装
 
@@ -136,7 +134,7 @@ inputChange(value) {
 
 ![截屏2020-03-2417.29.22](https://raw.githubusercontent.com/FrankWang1991/images/master/2020-03-24-截屏2020-03-2417.29.22-XUS0kB.png)
 
-是由于没有权限造成的,那需要进行 OAuth 验证或者添加相关的 token,由于是简单的 demo,所以就简单的在请求行中添加 `authorization` 来获取数据.此 token 在 GitHub 上进行申请,为了方便将所有 read 全部打开了.如果需要自行调试,请重新申请 token.  
+是由于没有权限造成的,那需要进行 OAuth 验证或者添加相关的 token,由于是简单的 demo,所以就简单的在请求行中添加 `authorization` 来获取数据.此 token 在 GitHub 上进行申请,为了方便将所有 read 全部打开了.如果出现问题,请点击 Not Work? 按钮,输入请求的 token .[申请 token](https://github.com/settings/tokens).  
 
 如何添加呢?  
 
@@ -146,8 +144,6 @@ inputChange(value) {
 ember g service auto-apollo
 yarn add -D apollo-link-context && yarn add -D apollo-link-error 
 ```
-
-
 
 ```javascript
 // app/service/auto-apollo.ts
@@ -181,6 +177,20 @@ link() {
     return authFlowLink.concat(httpLink);
   }
 ```
+正如刚才我们所说的,不能每次输入都触发请求,需要用户输入完毕才自动发送请求,就需要用到防抖:
+```javascript
+// 简单防抖
+function debounce(fn,delay) {
+    let timer = null;
+    return function(...args) {
+       const context = this;
+       clearTimeout(timer)
+       timer = setTimeout(() => {
+           fn.apply(context,args)
+       }, delay);
+    }
+}
+``` 
 
  至此,项目完成:
 
