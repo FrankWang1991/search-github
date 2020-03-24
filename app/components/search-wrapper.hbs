@@ -1,1 +1,8 @@
-{{yield}}
+<div class="container-fluid">
+  <SearchWrapper::Bar
+    @inputValue={{this.inputValue}}
+    @inputChange={{this.inputChange}}
+  />
+  <SearchWrapper::Desc @searchDesc={{this.searchDesc}} @searchSorts={{this.searchSorts}} @changeSort={{this.changeSort}} />
+  <SearchWrapper::Result @result={{this.searchResult}} />
+</div>

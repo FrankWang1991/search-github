@@ -112,3 +112,9 @@ query getSearch($searchValue: String!) {
 
 现在页面运行良好.
 
+## 进行页面实现
+
+由于逻辑和页面元素过多,代码请移步 [search-github](https://github.com/FrankWang1991/search-github) 进行查看;
+
+
+

@@ -1,0 +1,26 @@
+{{#if @searchDesc}}
+  <div class="container result-desc my-2">
+    <span>
+      Showing {{@searchDesc.repositoryCount}} available repository results
+    </span>
+    <BsDropdown as |dd|>
+      <dd.button>
+        sort
+        <span class="caret"></span>
+      </dd.button>
+      <dd.menu as |menu|>
+        {{#each @searchSorts as |sort|}}
+          <menu.item>
+            <BsButton
+              @type="light"
+              @block={{true}}
+              {{on "click" (fn @changeSort sort.value)}}
+            >
+              {{sort.label}}
+            </BsButton>
+          </menu.item>
+        {{/each}}
+      </dd.menu>
+    </BsDropdown>
+  </div>
+{{/if}}
