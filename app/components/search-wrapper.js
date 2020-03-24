@@ -6,16 +6,17 @@ import query from "search-github/gql/queries/repos.graphql";
 
 export default class SearchWrapperComponent extends Component {
     @service('auth-apollo') apollo;
-    @tracked isResetToken = false
+    // can be more
     searchSorts = [
         { label: "Best Match", value: "match" },
         { label: "Most stars", value: "stars" },
         { label: "Most forks", value: "forks" }
     ]
+    @tracked isResetToken = false
     @tracked curSort = this.searchSorts[0].value
     @tracked inputValue = ''
-    @tracked searchResult = [];
-    @tracked searchDesc = null;
+    @tracked searchResult = []
+    @tracked searchDesc = null
     @action
     changeSort(sort) {
         this.curSort = sort
@@ -28,7 +29,10 @@ export default class SearchWrapperComponent extends Component {
             this.apollo.watchQuery({ query, variables }, "search")
                 .then(data => {
                     this.searchResult = data.nodes
-                    this.searchDesc = { pageInfo: data.pageInfo, repositoryCount: data.repositoryCount }
+                    this.searchDesc = { 
+                        pageInfo: data.pageInfo, 
+                        repositoryCount: data.repositoryCount,
+                        searchLen: data.nodes.length }
                 })
     }
     @action

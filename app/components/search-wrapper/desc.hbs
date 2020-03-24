@@ -1,7 +1,7 @@
 {{#if @searchDesc}}
   <div class="container result-desc my-2">
     <span>
-      Showing {{@searchDesc.repositoryCount}} available repository results
+      Showing {{@searchDesc.searchLen}} / {{formatter-number @searchDesc.repositoryCount true}} available repository results
     </span>
     <BsDropdown as |dd|>
       <dd.button>

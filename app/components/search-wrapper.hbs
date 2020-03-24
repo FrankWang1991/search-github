@@ -4,9 +4,13 @@
     @inputChange={{this.inputChange}}
     @resetToken={{this.resetToken}}
   />
-  <SearchWrapper::Desc @searchDesc={{this.searchDesc}} @searchSorts={{this.searchSorts}} @changeSort={{this.changeSort}} />
+  <SearchWrapper::Desc
+    @searchDesc={{this.searchDesc}}
+    @searchSorts={{this.searchSorts}}
+    @changeSort={{this.changeSort}}
+  />
   <SearchWrapper::Result @result={{this.searchResult}} />
   {{#if this.isResetToken}}
-      <ResetToken @confirm={{this.confirmToken}}/>
+    <ResetToken @confirm={{this.confirmToken}} />
   {{/if}}
 </div>
