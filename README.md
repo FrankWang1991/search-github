@@ -188,3 +188,48 @@ link() {
 
 除了由于网络问题导致的图片加载问题,已经都可以了.  
 
+## 发布在 GitHub pages 上
+
+参考地址[ember-deploy-git](https://github.com/ef4/ember-cli-deploy-git) .
+
+安装所需要的插件
+
+```powershell
+ember install ember-cli-deploy ember-cli-deploy-build ember-cli-deploy-git
+```
+
+进行配置:
+
+```javascript
+// config/deploy.js
+// ...
+  const ENV = {
+    build: {},
+    git: {
+      branch: "gh-pages",
+      repo: "https://github.com/frankwang1991/search-github.git",
+      worktreePath: '/tmp/demo-deploy',
+      commitMessage: 'Deployed %@'
+    }
+    // include other plugin configuration that applies to all deploy targets here
+  };
+// ...
+```
+
+```javascript
+// config/environment.js
+if (environment === 'production') {
+  ENV.rootURL = '/your-repo-name';
+  ENV.locationType = 'hash';
+}
+```
+
+并在 package.json 中添加 homepage 属性.
+
+使用:
+
+```powershell
+ember deploy production
+```
+
+进行发布.
