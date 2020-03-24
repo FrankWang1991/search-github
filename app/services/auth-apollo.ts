@@ -23,7 +23,7 @@ export default class AuthApolloService extends ApolloService {
       }
       Object.assign(context, {
         headers: {
-          authorization: "bearer c2cdb8d4a457b829e77a7f55ac4cf0bd237af1b6"
+          authorization: "bearer ea43ca80171b559b479cd60a805fd19ad8ead696"
         }
       });
       return context;

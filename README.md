@@ -184,9 +184,9 @@ link() {
 
  至此,项目完成:
 
-![截屏2020-03-2417.44.35](https://raw.githubusercontent.com/FrankWang1991/images/master/2020-03-24-截屏2020-03-2417.44.35-zEgszD.png)
+![截屏2020-03-2418.45.56](https://i.loli.net/2020/03/24/ueH9faUW5TGgMcl.png)
 
-除了由于网络问题导致的图片加载问题,已经都可以了.  
+已经都可以了.  
 
 ## 发布在 GitHub pages 上
 
