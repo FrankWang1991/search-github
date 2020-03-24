@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function(environment) {
-  let ENV = {
+module.exports = function (environment) {
+  const ENV = {
     modulePrefix: 'search-github',
     environment,
     rootURL: '/',
@@ -20,7 +20,13 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    apollo: {
+      apiURL: 'https://api.github.com/graphql',
+      // Optionally, set the credentials property of the Fetch Request interface
+      // to control when a cookie is sent:
+      // requestCredentials: 'same-origin', // other choices: 'include', 'omit'
+    },
   };
 
   if (environment === 'development') {
