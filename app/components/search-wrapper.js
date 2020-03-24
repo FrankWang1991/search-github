@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import query from "search-github/gql/queries/repos.graphql";
 
 export default class SearchWrapperComponent extends Component {
-    @service('apollo') apollo;
+    @service('auth-apollo') apollo;
     searchSorts = [
         { label: "Best Match", value: "match" },
         { label: "Most stars", value: "stars" },
@@ -153,15 +153,12 @@ export default class SearchWrapperComponent extends Component {
     }
     @action
     inputChange(value) {
-        // this.inputValue = value
-        // if(!isEmpty(value)) {
             const searchSort = this.curSort
             const variables = { searchValue: `${value} sort:${searchSort}` };
             this.apollo.watchQuery({ query, variables }, "search")
                 .then(data => {
                     this.searchResult = data.nodes
                     this.searchDesc = { pageInfo: data.pageInfo, repositoryCount: data.repositoryCount }
-                    // return data
                 })
     }
 }

@@ -29,6 +29,8 @@
     "@types/rsvp": "^4.0.3",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
+    "apollo-link-context": "^1.0.19",
+    "apollo-link-error": "^1.1.12",
     "babel-eslint": "^10.0.3",
     "bootstrap": "^4.3.1",
     "broccoli-asset-rev": "^3.0.0",

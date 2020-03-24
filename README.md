@@ -116,5 +116,75 @@ query getSearch($searchValue: String!) {
 
 由于逻辑和页面元素过多,代码请移步 [search-github](https://github.com/FrankWang1991/search-github) 进行查看;
 
+主要的逻辑在于输入之后进行查询:
 
+```javascript
+// app/components/search-wrapper.js
+// ...
+inputChange(value) {
+  const searchSort = this.curSort
+  const variables = { searchValue: `${value} sort:${searchSort}` };
+  this.apollo.watchQuery({ query, variables }, "search")
+    .then(data => {
+    this.searchResult = data.nodes
+    this.searchDesc = { pageInfo: data.pageInfo, repositoryCount: data.repositoryCount }
+  })
+}
+```
+
+也就是在用户输入完毕之后(此处需使用了防抖,具体参见下文),使用 apollo 实例进行查询.在这个时候浏览器会报错,错误内容是:  
+
+![截屏2020-03-2417.29.22](https://raw.githubusercontent.com/FrankWang1991/images/master/2020-03-24-截屏2020-03-2417.29.22-XUS0kB.png)
+
+是由于没有权限造成的,那需要进行 OAuth 验证或者添加相关的 token,由于是简单的 demo,所以就简单的在请求行中添加 `authorization` 来获取数据.此 token 在 GitHub 上进行申请,为了方便将所有 read 全部打开了.如果需要自行调试,请重新申请 token.  
+
+如何添加呢?  
+
+需要继承本 service,并重写其中的函数:    
+
+```powershell
+ember g service auto-apollo
+yarn add -D apollo-link-context && yarn add -D apollo-link-error 
+```
+
+
+
+```javascript
+// app/service/auto-apollo.ts
+// ...
+link() {
+    const httpLink = super.link()
+
+    // Middleware
+    const authMiddleware = setContext(async (_request, context) => {
+      if (!this.token) {
+        this.token = await localStorage.getItem('token') || '';
+      }
+      Object.assign(context, {
+        headers: {
+          authorization: "bearer your_token"
+        }
+      });
+      return context;
+    });
+
+    // Afterware
+    const resetToken = onError(({ networkError }) => {
+      if (networkError && networkError.statusCode === 401) {
+        // remove cached token on 401 from the server
+        this.token = '';
+      }
+    });
+
+    const authFlowLink = authMiddleware.concat(resetToken);
+
+    return authFlowLink.concat(httpLink);
+  }
+```
+
+ 至此,项目完成:
+
+![截屏2020-03-2417.44.35](https://raw.githubusercontent.com/FrankWang1991/images/master/2020-03-24-截屏2020-03-2417.44.35-zEgszD.png)
+
+除了由于网络问题导致的图片加载问题,已经都可以了.  
 
